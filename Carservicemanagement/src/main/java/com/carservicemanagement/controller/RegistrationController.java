@@ -8,7 +8,7 @@ import com.carservicemanagement.service.RegistrationService;
 
 import java.io.IOException;
 
-@WebServlet("/register")
+@WebServlet(asyncSupported=true, urlPatterns={"/register"})
 public class RegistrationController extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
@@ -34,8 +34,31 @@ public class RegistrationController extends HttpServlet {
             request.getRequestDispatcher("/WEB-INF/pages/Login.jsp").forward(request, response);
         } else {
             request.setAttribute("message", "Registration failed!");
-            request.getRequestDispatcher("/WEB-INF/pages/Registration.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/pages/Register.jsp").forward(request, response);
         }
+    }
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        String action = request.getParameter("action");
+
+        if ("logout".equals(action)) {
+            HttpSession session = request.getSession(false);
+            if (session != null) {
+                session.invalidate();
+            }
+            response.sendRedirect("/WEB-INF/pages/Register.jsp");
+            return;
+        }
+
+        HttpSession session = request.getSession(false);
+        if (session != null && Boolean.TRUE.equals(session.getAttribute("isLoggedIn"))) {
+            response.sendRedirect("/WEB-INF/pages/Home.jsp");
+            return;
+        }
+
+        request.getRequestDispatcher("/WEB-INF/pages/Register.jsp").forward(request, response);
     }
 }
 

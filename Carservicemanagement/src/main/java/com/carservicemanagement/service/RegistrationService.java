@@ -6,14 +6,14 @@ import java.sql.PreparedStatement;
 
 public class RegistrationService {
 
-    private final String jdbcURL = "jdbc:mysql://localhost:8081/carservicemanagement?useSSL=false&serverTimezone=UTC";
+    private final String jdbcURL = "jdbc:mysql://localhost:3306/carservicemanagement";
     private final String jdbcUsername = "root";
     private final String jdbcPassword = "";
 
     public boolean registerUser(String fullName, String email, String username, String password) {
         boolean result = false;
 
-        String INSERT_QUERY = "INSERT INTO `user registration` (FullName, Email, Username, Password) VALUES (?, ?, ?, ?)";
+        String INSERT_QUERY = "INSERT INTO `users` (full_name, email, username, password) VALUES (?, ?, ?, ?)";
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");

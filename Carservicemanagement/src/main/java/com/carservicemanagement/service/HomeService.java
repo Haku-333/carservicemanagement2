@@ -6,15 +6,15 @@ public class HomeService {
         switch (path) {
             case "/home":
             case "/dashboard":
-                return "/pages/Home.jsp";
+                return "/WEB-INF/pages/Home.jsp";
             case "/services":
-                return "/pages/Services.jsp";
+                return "/WEB-INF/pages/Services.jsp";
             case "/appointments":
-                return "/pages/Appointments.jsp";
+                return "/WEB-INF/pages/Appointments.jsp";
             case "/customers":
-                return "/pages/Customers.jsp";
+                return "/WEB-INF/pages/Customers.jsp";
             case "/reports":
-                return "/pages/Reports.jsp";
+                return "/WEB-INF/pages/Reports.jsp";
             default:
                 return null;
         }
